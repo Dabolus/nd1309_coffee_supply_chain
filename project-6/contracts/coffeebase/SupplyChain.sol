@@ -1,7 +1,9 @@
 pragma solidity ^0.4.24;
 
+import "../coffeeaccesscontrol/FarmerRole.sol";
+
 // Define a contract 'Supplychain'
-contract SupplyChain {
+contract SupplyChain is FarmerRole {
     // Define 'owner'
     address owner;
 
@@ -153,12 +155,33 @@ contract SupplyChain {
         string _originFarmLatitude,
         string _originFarmLongitude,
         string _productNotes
-    ) public {
+    ) public onlyFarmer {
+        require(items[_upc].sku == 0, "The item has already been harvested");
+
         // Add the new item as part of Harvest
+        items[_upc] = Item({
+            sku: sku,
+            upc: _upc,
+            ownerID: _originFarmerID,
+            originFarmerID: _originFarmerID,
+            originFarmName: _originFarmName,
+            originFarmInformation: _originFarmInformation,
+            originFarmLatitude: _originFarmLatitude,
+            originFarmLongitude: _originFarmLongitude,
+            productID: sku + _upc,
+            productNotes: _productNotes,
+            productPrice: uint256(1),
+            itemState: defaultState,
+            distributorID: address(0),
+            retailerID: address(0),
+            consumerID: address(0)
+        });
 
         // Increment sku
         sku = sku + 1;
+
         // Emit the appropriate event
+        emit Harvested(upc);
     }
 
     // Define a function 'processtItem' that allows a farmer to mark an item 'Processed'
