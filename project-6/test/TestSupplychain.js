@@ -70,7 +70,7 @@ contract('SupplyChain', function (accounts) {
     const resultBufferTwo = await supplyChain.fetchItemBufferTwo.call(upc);
 
     // Verify the result set
-    assert.equal(resultBufferOne[0], sku, 'Error: Invalid item SKU');
+    assert.equal(resultBufferOne[0].toNumber(), sku, 'Error: Invalid item SKU');
     assert.equal(resultBufferOne[1], upc, 'Error: Invalid item UPC');
     assert.equal(
       resultBufferOne[2],
