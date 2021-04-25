@@ -222,13 +222,16 @@ contract SupplyChain is FarmerRole {
     // Define a function 'sellItem' that allows a farmer to mark an item 'ForSale'
     function sellItem(uint256 _upc, uint256 _price)
         public
-    // Call modifier to check if upc has passed previous supply chain stage
-
-    // Call modifier to verify caller of this function
-
+        // Call modifier to check if upc has passed previous supply chain stage
+        packed(_upc)
+        // Call modifier to verify caller of this function
+        onlyFarmer
     {
         // Update the appropriate fields
+        items[_upc].itemState = State.ForSale;
+        items[_upc].productPrice = _price;
         // Emit the appropriate event
+        emit ForSale(_upc);
     }
 
     // Define a function 'buyItem' that allows the disributor to mark an item 'Sold'
