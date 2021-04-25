@@ -205,6 +205,7 @@ contract SupplyChain is FarmerRole, DistributorRole {
         harvested(_upc)
         // Call modifier to verify caller of this function
         onlyFarmer
+        onlyItemOwner(_upc)
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Processed;
@@ -219,6 +220,7 @@ contract SupplyChain is FarmerRole, DistributorRole {
         processed(_upc)
         // Call modifier to verify caller of this function
         onlyFarmer
+        onlyItemOwner(_upc)
     {
         // Update the appropriate fields
         items[_upc].itemState = State.Packed;
@@ -233,6 +235,7 @@ contract SupplyChain is FarmerRole, DistributorRole {
         packed(_upc)
         // Call modifier to verify caller of this function
         onlyFarmer
+        onlyItemOwner(_upc)
     {
         // Update the appropriate fields
         items[_upc].itemState = State.ForSale;
