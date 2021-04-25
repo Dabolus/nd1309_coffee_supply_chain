@@ -1,9 +1,10 @@
 pragma solidity ^0.4.24;
 
 import "../coffeeaccesscontrol/FarmerRole.sol";
+import "../coffeeaccesscontrol/DistributorRole.sol";
 
 // Define a contract 'Supplychain'
-contract SupplyChain is FarmerRole {
+contract SupplyChain is FarmerRole, DistributorRole {
     // Define 'owner'
     address owner;
 
@@ -246,6 +247,8 @@ contract SupplyChain is FarmerRole {
         paidEnough(items[_upc].productPrice)
         // Call modifer to send any excess ether back to buyer
         checkValue(_upc)
+        // Call modifier to verify caller of this function
+        onlyDistributor
     {
         // Update the appropriate fields - ownerID, distributorID, itemState
         items[_upc].ownerID = msg.sender;
