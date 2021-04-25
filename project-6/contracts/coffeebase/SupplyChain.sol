@@ -177,7 +177,7 @@ contract SupplyChain is FarmerRole {
             originFarmLongitude: _originFarmLongitude,
             productID: sku + _upc,
             productNotes: _productNotes,
-            productPrice: uint256(1),
+            productPrice: 0,
             itemState: defaultState,
             distributorID: address(0),
             retailerID: address(0),
