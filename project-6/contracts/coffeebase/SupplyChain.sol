@@ -76,6 +76,12 @@ contract SupplyChain is FarmerRole, DistributorRole {
         _;
     }
 
+    // Define a modifer that verifies that the Caller is the owner of the given item
+    modifier onlyItemOwner(uint256 _upc) {
+        require(items[_upc].ownerID == msg.sender);
+        _;
+    }
+
     // Define a modifier that checks if the paid amount is sufficient to cover the price
     modifier paidEnough(uint256 _price) {
         require(msg.value >= _price);
