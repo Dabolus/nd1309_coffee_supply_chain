@@ -94,6 +94,7 @@ App = {
         return;
       }
       console.log('getMetaskID:', res);
+      web3.eth.defaultAccount = res[0];
       App.metamaskAccountID = res[0];
     });
   },
